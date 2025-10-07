@@ -25,5 +25,9 @@ export default {
   },
   mutations: {},
   actions: {},
-  getters: {},
+  getters: {
+    getContractors(state) {
+      return state.contractors;
+    },
+  },
 };
