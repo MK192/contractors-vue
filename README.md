@@ -1,6 +1,6 @@
 # contractors-vue
 
-## Project setup
+## Project Description
 Application for finding and message contractors, authenticated contractors can read messages.
 
 ### Technologies
