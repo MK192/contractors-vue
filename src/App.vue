@@ -1,7 +1,5 @@
 <template>
-  App
-
-  <p>dsadas</p>
+  <RouterView />
 </template>
 
 <script>
