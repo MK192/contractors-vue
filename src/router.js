@@ -4,6 +4,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import ContractorsList from "./pages/contractors/ContractorsList.vue";
 import ContractorDetails from "./pages/contractors/ContractorDetails.vue";
 import ContactForm from "./pages/contractors/ContactForm.vue";
+import RequestList from "./pages/requests/RequestList.vue";
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -17,6 +19,10 @@ const router = createRouter({
       component: ContractorDetails,
       props: true,
       children: [{ path: "contact", component: ContactForm, props: true }],
+    },
+    {
+      path: "/requests",
+      component: RequestList,
     },
   ],
 });
