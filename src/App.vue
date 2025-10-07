@@ -18,10 +18,12 @@ export default {
 
 html {
   font-family: "DM Sans", sans-serif;
+  color: white;
 }
 
 body {
   margin: 0;
-  background-color: #d8dce3;
+  /* background-color: #0d141f; */
+  background-color: #0c0e12;
 }
 </style>
