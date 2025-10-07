@@ -2,11 +2,11 @@
   <li>
     <h3>{{ fullName }}</h3>
     <h4>${{ rate }}/hour</h4>
-    <!-- <div>
+    <div>
       <BaseBadge v-for="area in areas" :key="area" :type="area" :title="area">{{
         area
       }}</BaseBadge>
-    </div> -->
+    </div>
     <div class="actions">
       <BaseButton link mode="outline" :to="contactLink">Contact</BaseButton>
       <BaseButton link :to="detailsLink">View Details</BaseButton>
