@@ -1,10 +1,10 @@
 import { createStore } from "vuex";
 import contractorsModule from "./modules/contractors";
-import requestModule from "./modules/request";
+import requestModule from "./modules/requests";
 
 const store = createStore({
   modules: {
-    coaches: contractorsModule,
+    contractors: contractorsModule,
     requests: requestModule,
   },
   state() {
