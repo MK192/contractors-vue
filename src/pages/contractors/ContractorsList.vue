@@ -1,10 +1,11 @@
 <template>
   <section>
+    <section><ContractorsFilter @change-filter="changeFilters" /></section>
     <BaseCard>
       <section>
         <div class="controls">
           <BaseButton mode="outline">Refresh</BaseButton>
-          <BaseButton link>Register as Coach</BaseButton>
+          <BaseButton link>Register as Contractor</BaseButton>
         </div>
         <ul v-if="contractors">
           <ContractorItem
@@ -17,7 +18,7 @@
             :areas="coach.areas"
           />
         </ul>
-        <h3 v-else>No available coaches</h3>
+        <h3 v-else>No available contractors</h3>
       </section>
     </BaseCard>
   </section>
@@ -25,12 +26,45 @@
 
 <script>
 import ContractorItem from "./ContractorItem.vue";
+import ContractorsFilter from "./ContractorsFilter.vue";
 
 export default {
-  components: { ContractorItem },
+  components: { ContractorItem, ContractorsFilter },
+  data() {
+    return {
+      activeFilters: { builder: true, electrician: true, plumber: true },
+    };
+  },
   computed: {
     contractors() {
-      return this.$store.getters["contractors/getContractors"];
+      const contractors = this.$store.getters["contractors/getContractors"];
+      return contractors.filter((contractor) => {
+        if (
+          this.activeFilters.builder &&
+          contractor.areas.includes("builder")
+        ) {
+          return true;
+        }
+
+        if (
+          this.activeFilters.electrician &&
+          contractor.areas.includes("electrician")
+        ) {
+          return true;
+        }
+        if (
+          this.activeFilters.plumber &&
+          contractor.areas.includes("plumber")
+        ) {
+          return true;
+        }
+        return false;
+      });
+    },
+  },
+  methods: {
+    changeFilters(updatedFilters) {
+      this.activeFilters = updatedFilters;
     },
   },
 };
