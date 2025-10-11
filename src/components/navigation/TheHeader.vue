@@ -9,14 +9,34 @@
       <li>
         <RouterLink to="/contractors">Contractors List </RouterLink>
       </li>
-      <li>
+      <li v-if="isLoggedIn">
         <RouterLink to="/requests">Requests </RouterLink>
+      </li>
+      <li v-else>
+        <RouterLink to="/auth">Login</RouterLink>
+      </li>
+      <li v-if="isLoggedIn">
+        <BaseButton @click="logout">Logout</BaseButton>
       </li>
     </ul>
   </header>
 </template>
 
-<script></script>
+<script>
+export default {
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters["auth/isAuthenticated"];
+    },
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("auth/logout");
+      this.$router.replace("/contractors");
+    },
+  },
+};
+</script>
 
 <style scoped>
 header {

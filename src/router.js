@@ -5,6 +5,7 @@ import ContractorsList from "./pages/contractors/ContractorsList.vue";
 import ContractorDetails from "./pages/contractors/ContractorDetails.vue";
 import ContactForm from "./pages/contractors/ContactForm.vue";
 import RequestList from "./pages/requests/RequestList.vue";
+import AuthForm from "./pages/auth/AuthForm.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -24,6 +25,7 @@ const router = createRouter({
       path: "/requests",
       component: RequestList,
     },
+    { path: "/auth", component: AuthForm },
   ],
 });
 

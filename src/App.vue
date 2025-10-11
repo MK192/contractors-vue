@@ -8,6 +8,21 @@ import TheHeader from "./components/navigation/TheHeader.vue";
 export default {
   name: "App",
   components: { TheHeader },
+  created() {
+    this.$store.dispatch("auth/tryLogin");
+  },
+  computed: {
+    didAutoLogout() {
+      return this.$store.getters["auth/didAutoLogout"];
+    },
+  },
+  watch: {
+    didAutoLogout(newValue, oldValue) {
+      if (newValue && newValue !== oldValue) {
+        this.$router.replace("/contractors");
+      }
+    },
+  },
 };
 </script>
 

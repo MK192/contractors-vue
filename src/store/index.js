@@ -1,9 +1,10 @@
 import { createStore } from "vuex";
 import contractorsModule from "./modules/contractors";
 import requestModule from "./modules/requests";
-
+import authModule from "./modules/auth";
 const store = createStore({
   modules: {
+    auth: authModule,
     contractors: contractorsModule,
     requests: requestModule,
   },
