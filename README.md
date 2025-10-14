@@ -1,10 +1,10 @@
 # contractors-vue
 
 ## Project Description
-Application for finding and message contractors, authenticated contractors can read messages.
+Application registration finding and message contractors. Authenticated contractors can read messages or edit profile.
 
 ### Technologies
 - Vue
 - Vuex
 - Vue-router
-  
+- Tanstack query
