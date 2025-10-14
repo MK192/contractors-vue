@@ -75,12 +75,13 @@
       <p v-if="!areas.isValid">At least one expertise must be selected.</p>
     </div>
     <p v-if="!formIsValid">Please fix errors</p>
-    <BaseButton>Register</BaseButton>
+    <BaseButton>Submit</BaseButton>
   </form>
 </template>
 
 <script>
 export default {
+  props: ["edit"],
   emits: ["submit-data"],
   data() {
     return {
@@ -131,6 +132,21 @@ export default {
         this.formIsValid = false;
       }
     },
+    editContractor() {
+      this.validateForm();
+      if (!this.formIsValid) {
+        return;
+      }
+      const formData = {
+        firstName: this.firstname.value,
+        lastName: this.lastname.value,
+        description: this.description.value,
+        hourlyRate: this.rate.value,
+        areas: this.areas.value,
+      };
+
+      this.$emit("submit-data", formData);
+    },
     clearValidity(input) {
       this[input].isValid = true;
     },
@@ -149,6 +165,24 @@ export default {
 
       this.$emit("submit-data", formData);
     },
+  },
+
+  async mounted() {
+    if (this.edit) {
+      await this.$store.dispatch("contractors/fetchContractors");
+      const allContractors = this.$store.getters["contractors/getContractors"];
+      const contractorId = this.$store.getters["auth/getUserId"];
+      const loggedContractor = allContractors?.find(
+        (contr) => contr.id === contractorId
+      );
+      if (loggedContractor) {
+        this.firstname.value = loggedContractor.firstName;
+        this.lastname.value = loggedContractor.lastName;
+        this.description.value = loggedContractor.description;
+        this.rate.value = loggedContractor.hourlyRate;
+        this.areas.value = loggedContractor.areas;
+      }
+    }
   },
 };
 </script>

@@ -32,6 +32,13 @@ const router = createRouter({
     {
       path: "/registration",
       component: ContractorRegistration,
+      props: { edit: false },
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/edit",
+      component: ContractorRegistration,
+      props: { edit: true },
       meta: { requiresAuth: true },
     },
   ],
