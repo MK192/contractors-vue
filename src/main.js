@@ -1,4 +1,5 @@
 import { createApp } from "vue";
+import { VueQueryPlugin } from "@tanstack/vue-query";
 import App from "./App.vue";
 //general
 import BaseCard from "./components/general/BaseCard.vue";
@@ -12,7 +13,8 @@ const app = createApp(App);
 app.component("BaseCard", BaseCard);
 app.component("BaseButton", BaseButton);
 app.component("BaseBadge", BaseBadge);
-
+app.use(VueQueryPlugin);
 app.use(router);
 app.use(store);
+
 app.mount("#app");

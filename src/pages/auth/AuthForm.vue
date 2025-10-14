@@ -117,15 +117,15 @@ textarea {
   display: block;
   width: 100%;
   font: inherit;
-  background-color: #424242;
+  background-color: white;
   border: 1px solid #363636;
   padding: 0.15rem;
 }
 
 input:focus,
 textarea:focus {
-  border-color: rgb(235, 227, 227);
-  background-color: #424242;
+  border-color: #363636;
+  background-color: #c9bcdb;
   outline: none;
 }
 </style>
