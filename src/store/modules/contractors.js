@@ -32,6 +32,10 @@ export default {
     setContractors(state, payload) {
       state.contractors = payload;
     },
+    editContractor(state, payload) {
+      console.log(payload);
+      state.contractors = payload;
+    },
   },
   actions: {
     async registerContractor(context, data) {
@@ -82,16 +86,47 @@ export default {
       }
       context.commit("setContractors", contractors);
     },
+
+    async editContractor(context, payload) {
+      const userId = context.rootGetters["auth/getUserId"];
+      console.log(userId);
+
+      const newData = {
+        id: userId,
+        firstName: payload.firstName,
+        lastName: payload.lastName,
+        description: payload.description,
+        hourlyRate: payload.hourlyRate,
+        areas: payload.areas,
+      };
+
+      const res = await fetch(
+        `https://contractors-56500-default-rtdb.europe-west1.firebasedatabase.app/contractors/${userId}.json`,
+
+        {
+          method: "PUT",
+          body: JSON.stringify(newData),
+        }
+      );
+      const responseData = await res.json();
+      if (!res.ok) {
+        const message = responseData.error?.message || "Something went wrong.";
+        throw new Error(message);
+      }
+
+      context.commit("editContractor", {
+        ...newData,
+      });
+    },
   },
   getters: {
     getContractors(state) {
-      console.log("contractors : ", state.contractors);
       return state.contractors;
     },
 
     isContractor(_, getters, _2, rootGetters) {
       const contractors = getters.getContractors;
-      const userId = rootGetters.userId;
+      const userId = rootGetters["auth/getUserId"];
       if (contractors) {
         return contractors.some((contractor) => contractor.id === userId);
       } else {

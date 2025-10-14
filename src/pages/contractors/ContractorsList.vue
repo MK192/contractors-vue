@@ -13,6 +13,9 @@
             to="/registration"
             >Register as Contractor</BaseButton
           >
+          <BaseButton link v-if="isContractor" to="/edit"
+            >Edit Profile</BaseButton
+          >
         </div>
         <ul v-if="contractors?.length > 0">
           <ContractorItem
@@ -40,6 +43,7 @@ import ContractorsFilter from "./ContractorsFilter.vue";
 
 export default {
   components: { ContractorItem, ContractorsFilter },
+
   data() {
     return {
       data: null,
@@ -58,6 +62,7 @@ export default {
     },
     contractors() {
       const contractors = this.$store.getters["contractors/getContractors"];
+
       return contractors?.filter((contractor) => {
         if (
           this.activeFilters.builder &&
@@ -94,6 +99,7 @@ export default {
      */ await this.$store.dispatch("contractors/fetchContractors", {
           forceRefresh: refresh,
         });
+
         return this.$store.state.contractors.contractors;
       } catch (error) {
         this.error = error.message ?? "Something went wrong!";
@@ -116,6 +122,9 @@ export default {
     this.data = data;
     this.isLoading = isLoading;
     this.error = error;
+  },
+  mounted() {
+    this.$store.getters.isContractor;
   },
 };
 </script>
