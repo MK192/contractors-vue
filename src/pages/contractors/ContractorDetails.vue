@@ -45,7 +45,10 @@ export default {
       );
     },
     contactLink() {
-      console.log(this.$route.path);
+      const link = this.$route.path.split("/");
+      if (link[link.length - 1] === "contact") {
+        return this.$route.path;
+      }
       return this.$route.path + "/contact";
     },
 
