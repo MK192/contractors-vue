@@ -89,8 +89,11 @@ export default {
 
     async editContractor(context, payload) {
       const userId = context.rootGetters["auth/getUserId"];
-      console.log(userId);
 
+      if (!userId) {
+        throw new Error("User is not authenticated");
+      }
+      const token = context.rootGetters["auth/getToken"];
       const newData = {
         id: userId,
         firstName: payload.firstName,
@@ -101,7 +104,7 @@ export default {
       };
 
       const res = await fetch(
-        `https://contractors-56500-default-rtdb.europe-west1.firebasedatabase.app/contractors/${userId}.json`,
+        `https://contractors-56500-default-rtdb.europe-west1.firebasedatabase.app/contractors/${userId}.json?auth=${token}`,
 
         {
           method: "PUT",
