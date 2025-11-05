@@ -22,16 +22,15 @@ export default {
         email: payload.email,
         message: payload.message,
       };
-
+      const token = context.rootGetters["auth/getToken"];
       const res = await fetch(
-        `https://contractors-56500-default-rtdb.europe-west1.firebasedatabase.app/request/${payload.contractorId}.json`,
+        `https://contractors-56500-default-rtdb.europe-west1.firebasedatabase.app/request/${payload.contractorId}.json?auth=${token}`,
 
         {
           method: "POST",
           body: JSON.stringify(newRequest),
         }
       );
-
       const responseData = await res.json();
 
       if (!res.ok) {
@@ -41,6 +40,41 @@ export default {
 
       context.commit("addRequest", newRequest);
     },
+
+    async fetchRequests(context) {
+      const userId = context.rootGetters["auth/getUserId"];
+
+      if (!userId) {
+        throw new Error("User is not authenticated");
+      }
+      const token = context.rootGetters["auth/getToken"];
+      const res = await fetch(
+        `https://contractors-56500-default-rtdb.europe-west1.firebasedatabase.app/request/${userId}.json?auth=${token}`
+      );
+      const responseData = await res.json();
+      if (!res.ok) {
+        //
+        const error = new Error(responseData.message || "Failed to fetch!");
+        throw error;
+      }
+      const requests = [];
+      // for (const key in responseData) {
+      //   const request = {
+      //     id: key,
+      //     contractorId: userId,
+      //     email: responseData[key].email,
+      //     message: responseData[key].message,
+      //   };
+      //   requests.push(request);
+      // }
+      console.log(responseData);
+      requests.push(responseData);
+      context.commit("setRequests", requests);
+    },
   },
-  getters: {},
+  getters: {
+    getRequest() {
+      return this.requests;
+    },
+  },
 };
