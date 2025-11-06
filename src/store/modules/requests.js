@@ -57,18 +57,9 @@ export default {
         const error = new Error(responseData.message || "Failed to fetch!");
         throw error;
       }
-      const requests = [];
-      // for (const key in responseData) {
-      //   const request = {
-      //     id: key,
-      //     contractorId: userId,
-      //     email: responseData[key].email,
-      //     message: responseData[key].message,
-      //   };
-      //   requests.push(request);
-      // }
-      console.log(responseData);
-      requests.push(responseData);
+
+      // it returns object for each user, so we need to create array to group and store data from each request
+      const requests = Object.values(responseData);
       context.commit("setRequests", requests);
     },
   },

@@ -34,7 +34,7 @@ export default {
     },
     async auth(context, payload) {
       const mode = payload.mode;
-      console.log(process.env.VUE_APP_WEB_API_KEY);
+
       let url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.VUE_APP_WEB_API_KEY}`;
 
       if (mode === "signup") {

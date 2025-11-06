@@ -40,7 +40,6 @@ export default {
   actions: {
     async registerContractor(context, data) {
       const userId = context.rootGetters["auth/getUserId"];
-      console.log(userId);
       const token = context.rootGetters["auth/getToken"];
       const res = await fetch(
         `https://contractors-56500-default-rtdb.europe-west1.firebasedatabase.app/contractors/${userId}.json?auth=` +

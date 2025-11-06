@@ -1,7 +1,14 @@
-<template>Request List</template>
+<template>
+  <RequestCard
+    v-for="request in requests"
+    :key="request.requestID"
+    :request="request"
+  />
+</template>
 
 <script>
 import { useQuery } from "@tanstack/vue-query";
+import RequestCard from "./RequestCard.vue";
 export default {
   data() {
     return {
@@ -10,7 +17,7 @@ export default {
       error: null,
     };
   },
-
+  components: { RequestCard },
   methods: {
     async getUsersRequests() {
       this.isLoading = true;
@@ -36,7 +43,8 @@ export default {
       staleTime: Infinity,
       cacheTime: Infinity,
     });
-    this.data = data;
+
+    this.requests = data;
     this.isLoading = isLoading;
     this.error = error;
   },
