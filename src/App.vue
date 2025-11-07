@@ -40,7 +40,6 @@ html {
 
 body {
   margin: 0;
-  /* background-color: #0d141f; */
   background-color: #0c0e12;
 }
 </style>

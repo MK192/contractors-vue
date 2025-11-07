@@ -17,7 +17,9 @@
             >Edit Profile</BaseButton
           >
         </div>
+
         <ul v-if="contractors?.length > 0">
+          <h2>List Of Active Contractors</h2>
           <ContractorItem
             v-for="contractor in contractors"
             :key="contractor.id"
@@ -54,7 +56,6 @@ export default {
   },
   computed: {
     isLoggedIn() {
-      console.log(this.$store.getters["auth/isAuthenticated"]);
       return this.$store.getters["auth/isAuthenticated"];
     },
     isContractor() {
@@ -139,6 +140,9 @@ ul {
 h3 {
   text-align: center;
   margin: 3rem 0;
+}
+h2 {
+  text-decoration: underline;
 }
 .controls {
   display: flex;

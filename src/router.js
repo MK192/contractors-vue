@@ -21,6 +21,7 @@ const router = createRouter({
       path: "/contractors/:id",
       component: ContractorDetails,
       props: true,
+      meta: { requiresAuth: true },
       children: [{ path: "contact", component: ContactForm, props: true }],
     },
     {
