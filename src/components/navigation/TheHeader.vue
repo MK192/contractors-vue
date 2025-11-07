@@ -4,26 +4,37 @@
       <h1>
         <RouterLink to="/"> Contractor App </RouterLink>
       </h1>
+
+      <ul>
+        <li>
+          <RouterLink to="/contractors">Contractors List </RouterLink>
+        </li>
+        <li v-if="isLoggedIn">
+          <RouterLink to="/requests">Requests </RouterLink>
+        </li>
+        <li v-else>
+          <RouterLink to="/auth">Login</RouterLink>
+        </li>
+        <li v-if="isLoggedIn">
+          <BaseButton @click="logout">Logout</BaseButton>
+        </li>
+      </ul>
     </nav>
-    <ul>
-      <li>
-        <RouterLink to="/contractors">Contractors List </RouterLink>
-      </li>
-      <li v-if="isLoggedIn">
-        <RouterLink to="/requests">Requests </RouterLink>
-      </li>
-      <li v-else>
-        <RouterLink to="/auth">Login</RouterLink>
-      </li>
-      <li v-if="isLoggedIn">
-        <BaseButton @click="logout">Logout</BaseButton>
-      </li>
-    </ul>
+    <HamburgerMenu @hamburgerClicked="toggleMenu" :isOpen="isOpen" />
   </header>
 </template>
 
 <script>
+import HamburgerMenu from "./HamburgerMenu.vue";
+
 export default {
+  components: { HamburgerMenu },
+
+  data() {
+    return {
+      isOpen: false,
+    };
+  },
   computed: {
     isLoggedIn() {
       return this.$store.getters["auth/isAuthenticated"];
@@ -33,6 +44,9 @@ export default {
     logout() {
       this.$store.dispatch("auth/logout");
       this.$router.replace("/contractors");
+    },
+    toggleMenu(isOpen) {
+      this.isOpen = isOpen;
     },
   },
 };
@@ -98,5 +112,10 @@ header ul {
 
 li {
   margin: 0 0.5rem;
+}
+@media screen and (max-width: 750px) {
+  nav ul {
+    display: none;
+  }
 }
 </style>
